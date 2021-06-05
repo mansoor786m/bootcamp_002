@@ -1,13 +1,11 @@
 # This is a basic workflow to help you get started with Actions
+name: React App Deployment
 
-name: Github_workflow
-
-# Controls when the action will run. 
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
 on:
-  # Triggers the workflow on push or pull request events but only for the master branch
   push:
     branches: [ master ]
- 
 
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -16,27 +14,27 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-      
-      - name: Setup Node.js environment
+      # Runs a single command using the runners shell
+      - name: Install Node.Js
         uses: actions/setup-node@v2-beta
         with:
-              version: 14.17.0
-      - name: GitHub Action for Yarn
-        uses: Borales/actions-yarn@v2.3.0
+          node-version: 12
+      
+      - name: Install Yarn
+        uses: borales/actions-yarn@v2.0.0
         with:
-      # Yarn command
-              cmd: install # yarn install/npm install
-      
-      -name: Creating Build
+          cmd: install # will run `yarn install` command
+          
+      - name: Build React App
         run: yarn build
-         # Runs a single command using the runners shell
-      
-      - name: installing surge  
-        run: npm install -g surge
-      
-      - name: deploying on surge
-        run: surge ./build http://bootcamp20_002.surge.sh/ --token ${{secrets.SURGE_TOKEN}}
+        
+      - name: Install Surge
+        run: npm install --global surge
+        
+      - name: Deploy to Surge
+        run: surge ./build bootcamp20_002.surge.sh --token ${{secrets.SURGE_TOKEN}}
