@@ -32,7 +32,7 @@ jobs:
           #yarn command
           cmd: install
       - name: creating build
-        run: yarn build
+        run: yarn add build
       
       - name: installing surge
         run: npm install -g surge
