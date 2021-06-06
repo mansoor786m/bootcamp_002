@@ -9,8 +9,6 @@ on:
     branches: [ master ]
 
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -29,7 +27,7 @@ jobs:
         with: 
           version: 12
       - name: Github action for yarn
-        uses: Borales/actions-yarn@2.1.0
+        uses: Borales/actions.yarn@2.1.0
         with:
           #yarn command
           cmd: install
